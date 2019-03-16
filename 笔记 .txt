@@ -1,0 +1,58 @@
+
+    - 项目流程：    
+        - 静态的页面，
+        - 静态资源拆分成组件，组合成DOM到项目之中。
+        - 配置反向代理
+        - 生命周期函数加载之后，发起 axios 请求
+        - 将获取到的数据存取到 state 之中，然后开始渲染页面
+
+        
+
+    - List.css 中图片的路径写成绝对路径。
+    - 由于 #main 的样式是继承于父元素的，但在脚手架中元素为 root，所以二者都需要继承父元素。
+        - index.css中设置 #root,#main{ width:100%; height:100%; position:relative; margin:0 auto;}
+    - 已经 postman 软件的使用。
+    - 反向代理的实现。
+    - react 反向代理的实现，在 package.json 中简单实现,配置完成后必须要重启。
+        - 支持一个字符串的形式
+        - "proxy":"https://api.hibai.cn/api"
+        - 那么如何配置多个反向代理呢？
+            - src 目录下，
+            - 文件：setupProxy，
+            - const proxy = require('http-proxy-middleware');
+                        module.exports = function(app) {
+                        app.use(proxy('/api', { 
+                            target: 'https://api.hibai.cn',
+                            changeOrigin: true,
+                            pathRewrite:{
+                                '^/api':""
+                            }
+                        }));
+                    };
+
+    - 动态路由的设置：path="/lyric/:id"
+    - 移动端的点击（滑动）事件： onTouchStart = { }
+    - 可以将以下二者结合，写一个只有在点击时才会触发的事件
+        - onTouchMove = {} :鼠标移动时触发
+        - onTouchEnd  = {} :鼠标抬起时触发
+    - 编程式路由的实现
+        - this.props.history.push('/lyric' + id);
+        - <li key={ item.id }
+            onTouchMove={this.handleMove}
+            onTouchEnd={() => { 
+                this.handleEnd(item.id) 
+                } 
+            }>
+
+    - this 指向的问题。
+    - 状态管理来控制 < 的显示与否。
+    - store 只需要在全局中映入即可。
+    - 在主模块中引入，使用react-redux
+        - import {Provider} from 'react-redux'
+        - import store from './store/index'
+        - ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+    - connect 函数的使用，注意两个函数的使用方法及其意义。
+        - 通过 this.props 调取
+        - 任务配发时 dispatch 事件的处理
+    
+

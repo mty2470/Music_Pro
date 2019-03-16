@@ -1,26 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component,Fragment } from 'react';
 import './App.css';
+// 
+import { BrowserRouter as Router,Route,Switch,Redirect } from 'react-router-dom'
+
+import Header from './component/header/Header'
+import List from './component/list/List'
+import Audio from "./component/audio/Audio";
+import Lyric from "./component/lyric/Lyric";
+
+
+// 数据接口：https://api.hibai.cn/api/demo/index
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Fragment>
+        <Router>
+            <div id="main">
+                <Header></Header>
+                {/* 路由重定向的配置  +  以及动态路由 */}
+                <Switch>
+                    <Route path="/list" component={List}></Route>
+                    <Route path="/lyric/:id" component={Lyric}></Route>      
+                    <Redirect from="/*" to="/list"></Redirect>         
+                </Switch>
+                <Audio></Audio>
+            </div>
+        </Router>
+      </Fragment>
     );
   }
 }
