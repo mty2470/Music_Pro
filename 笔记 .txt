@@ -1,10 +1,18 @@
 
+项目的启动：yarn start
+
     - 项目流程：    
         - 静态的页面，
         - 静态资源拆分成组件，组合成DOM到项目之中。
         - 配置反向代理
         - 生命周期函数加载之后，发起 axios 请求
         - 将获取到的数据存取到 state 之中，然后开始渲染页面
+
+
+    
+
+    - react-redux 中 react-redux 的使用。
+    - import { createStore, combineReducers } from "redux";
 
         
 
@@ -35,6 +43,7 @@
     - 可以将以下二者结合，写一个只有在点击时才会触发的事件
         - onTouchMove = {} :鼠标移动时触发
         - onTouchEnd  = {} :鼠标抬起时触发
+        - onTouchStart = {} :鼠标点击时触发
     - 编程式路由的实现
         - this.props.history.push('/lyric' + id);
         - <li key={ item.id }
@@ -54,5 +63,41 @@
     - connect 函数的使用，注意两个函数的使用方法及其意义。
         - 通过 this.props 调取
         - 任务配发时 dispatch 事件的处理
+
+
+    - 正则表达式：
+        - var re = /   \[ ( [^\] ]+ ) \]   ( [^[]+ )   /g;
+        - () 的作用是分组和子项
+        - [00:12.000]难以呼吸
     
 
+    - 播放器中的id存到 状态管理 中。
+    - 播放、暂停以及歌词的滚动。
+    - 点击按钮式时 音乐的播放和暂停是在生命周期中去监听，尽量在状态管理中去控制
+    - 点击的时候用状态管理去做
+    - 
+
+
+    - 注意 react-redux 和 redux 模块的使用。
+    - import { createStore, combineReducers } from "redux";   // 数据仓库中使用
+    - import { connect } from 'react-redux'
+
+
+    
+    - 进度条如何做？
+        -   // 确定一个比例值
+        -   var scale = L / audioProgress.offsetWidth;  // 0-1之间
+        -   audio.currentTime = scale * audio.duration; // 自动去匹配播放进度
+        -   audioNow.style.width = scale * 100 + "%";   // 进度条   
+
+        // 小球和蓝条随进度自动加载
+        var scale = audio .currentTime / audio.duration;     // 获取一个比例值
+        audioBar.style.left = scale * audioProgress.offsetWidth + "px";
+        audioNow.style.width = scale * 100 + "%";
+
+
+    - 以标识的方式 来加载 激活歌词的样式问题。
+    - active激活的时候不会触发生命周期函数，只有音乐播放的时候才会。
+
+
+    - css3 插件的使用
