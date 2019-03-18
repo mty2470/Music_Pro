@@ -39,6 +39,7 @@
                     };
 
     - 动态路由的设置：path="/lyric/:id"
+        - this.props.match.params.id
     - 移动端的点击（滑动）事件： onTouchStart = { }
     - 可以将以下二者结合，写一个只有在点击时才会触发的事件
         - onTouchMove = {} :鼠标移动时触发
@@ -98,6 +99,48 @@
 
     - 以标识的方式 来加载 激活歌词的样式问题。
     - active激活的时候不会触发生命周期函数，只有音乐播放的时候才会。
+        - 通过其他的生命周期函数来解决定时器一直触发的问题，
+        - componentWillReceiveProps----------componentDidMount
 
 
-    - css3 插件的使用
+    - css3 插件的使用：等待的loading
+
+
+
+    - 歌曲名称的传递。
+        - 接受参数，传递到状态管理当中，任务的配发，接受参数--和store中进行联系
+
+    
+    - <li className={this.props.musicName ===  '' + item.id ? "active" : ""}
+        - 判断该项是否被选中 
+        - 注意格式的问题 === 
+
+    - 点击返回按钮之后，注意列表的回滚问题。
+        -   this.setState({
+                    musicList:musicList,// 拿到歌曲信息
+                    isLoading:false,    // 请求成功之后为false
+                },()=>{
+                    // 获取所有的li
+                    var musicListUl =this.refs.musicListUl;
+                    var musicListLi = musicListUl.getElementsByTagName("li");
+                    for (let i = 0; i < musicListLi.length; i++) {
+                        if (musicListLi[i].className) {
+                            musicListUl.scrollTop = musicListLi[i].offsetTop;                            
+                        }
+                    }
+                    // this.refs.musicListUl.scrollTop = 200;
+                    // 加到外层容器上
+                })
+
+    - Raect中的缓存系统：   
+        - 将ajax请求到的数据 缓存 到js当中。
+        - 本地存储：5M
+        - localStorage:
+            - 永久性存储。
+        - sessionStorage:
+            - 临时性存储 。
+
+
+
+    -   /* 动画播放的状态 */
+        animation-play-state: paused;

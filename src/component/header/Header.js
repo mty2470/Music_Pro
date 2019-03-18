@@ -21,7 +21,8 @@ import {NavLink} from 'react-router-dom'
 
 function mapStateToProps(state){
      return {
-         headerArrow: state.headerArrow
+         headerArrow: state.headerArrow,
+         musicTitle: state.musicTitle
      }
 }
 
@@ -36,7 +37,8 @@ class HeaderUI extends Component {
         return(
             <div>
                 <div id="musicHeader">
-                    { this.props.headerArrow && <NavLink to='/list'><span>&lt;</span></NavLink> }巅峰榜 · 热歌
+                    { this.props.headerArrow && <NavLink to='/list'><span>&lt;</span></NavLink> }
+                    { this.props.musicTitle }
 		        </div>
             </div>
         );

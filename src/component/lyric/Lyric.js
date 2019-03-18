@@ -15,14 +15,15 @@ class LyricUI extends Component {
         this.state = {
             LyricList:[],// 改造成 时间和歌词 对应的形式
             active:-1    // 以标识的方式来解决
-        }
+        };
+        this.handlTouch = this.handlTouch.bind(this);
     }
 
     render(){
         return(
             <div>
                 <div id="musicLyric">
-                    <ul ref="musicUl">
+                    <ul ref="musicUl" onTouchStart={this.handlTouch}>
                         {/* <li>歌词测试文字</li>
                         <li className="active">歌词测试文字</li>
                         <li>歌词测试文字</li>
@@ -54,19 +55,37 @@ class LyricUI extends Component {
         // 触发箭头的状态管理
         this.props.headerArrowFn();
         this.props.musicNameFn(id); // 详情页刷新的问题
+
+
+        if (this.props.ismusicPlay) {
+          this.lyricPlay(); // 播放就输出歌词
+        } else {
+          this.lyricPause(); // 8.会导致 定时器一直走，音乐暂停不触发。
+        }
+
     }
 
     // 更新歌词
     componentDidUpdate(){
         // 8.解决死循环
-        if (this.state.active !== -1) {
-            return false;
-        }
+        // if (this.state.active !== -1) {
+        //     return false;
+        // }
 
-        if (this.props.ismusicPlay) {
-            this.lyricPlay();// 播放就输出歌词
+        // if (this.props.ismusicPlay) {
+        //     this.lyricPlay();// 播放就输出歌词
+        // } else {
+        //     this.lyricPause();// 8.会导致 定时器一直走，音乐暂停不触发。
+        // }
+    }
+
+    // componentDidUpdate() 中的解决方法
+    // 解决定时器调用 8.9
+    componentWillReceiveProps(nextprops){
+        if (nextprops.ismusicPlay) {
+          this.lyricPlay(); // 播放就输出歌词
         } else {
-            this.lyricPause();// 8.会导致 定时器一直走，音乐暂停不触发。
+          this.lyricPause(); // 8.会导致 定时器一直走，音乐暂停不触发。
         }
     }
 
@@ -108,7 +127,7 @@ class LyricUI extends Component {
         clearInterval(this.timer);
     }
     Playing(){// 6.
-        console.log("定时器");
+        console.log("定时器监听");
         
         var LyricList = this.state.LyricList;
         var audio = document.getElementById("audio"); // 通过 id 存取
@@ -125,6 +144,10 @@ class LyricUI extends Component {
                 }
             }
         }
+    }
+    handlTouch(){
+        var id = this.props.match.params.id;
+        this.props.history.push('/pic/' + id);
     }
 
 }

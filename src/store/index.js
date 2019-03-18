@@ -29,12 +29,23 @@ function ismusicPlayReducer(state=false,action){
     }
 }
 
+function musicTitleReducer(state="巅峰榜 · 热歌",action){
+    if (action.type === "MUSICTITLE_CHANGE") {
+        return action.payload;
+    } else {
+        return state
+    }
+}
+
+
+
 
 
 let reducers = combineReducers({
     headerArrow:headerArrowReducer,
     musicName:musicNameReducer,
-    ismusicPlay:ismusicPlayReducer
+    ismusicPlay:ismusicPlayReducer,
+    musicTitle:musicTitleReducer
 })
 
 
